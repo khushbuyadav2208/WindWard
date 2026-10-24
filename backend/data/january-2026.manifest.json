@@ -1,0 +1,35 @@
+{
+  "file": "january-2026.json",
+  "sha256": "673b475a8ad6fa52d0acd5720323b7e9dfd10a3eab1f3c90d6973e6ab0308780",
+  "fetched_at": "2026-10-24T13:57:19.272809+00:00",
+  "provenance": {
+    "provider": "Elexon Insights / BMRS",
+    "base_url": "https://data.elexon.co.uk/bmrs/api/v1",
+    "datasets": [
+      "FUELHH",
+      "WINDFOR"
+    ],
+    "fuel_type": "WIND",
+    "publication_window_start": "2025-12-24T00:00:00+00:00",
+    "publication_window_end": "2026-02-03T00:00:00+00:00",
+    "note": "Unmodified WIND records from Elexon stream APIs; overlapping window boundaries are deduplicated during validation."
+  },
+  "valid_actual_records": 1536,
+  "valid_forecast_records": 18688,
+  "validation": {
+    "actuals": {
+      "invalid_records": 0,
+      "duplicate_records": 11,
+      "conflicting_records": 0,
+      "non_wind_records": 0,
+      "out_of_scope_records": 435
+    },
+    "forecasts": {
+      "invalid_records": 0,
+      "duplicate_records": 0,
+      "conflicting_records": 0,
+      "non_wind_records": 0,
+      "out_of_scope_records": 5256
+    }
+  }
+}

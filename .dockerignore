@@ -1,0 +1,11 @@
+.git
+.venv
+**/node_modules
+**/dist
+**/__pycache__
+.pytest_cache
+.env
+.vercel
+artifacts
+*.docx
+backend/data/cache.json

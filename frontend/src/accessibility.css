@@ -1,0 +1,237 @@
+/* Text contrast and operational reading density. */
+.sidebar {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #45685a #123d36;
+}
+:is(
+  .breadcrumbs,
+  .history-badge,
+  .eyebrow,
+  .page-heading p,
+  .data-strip,
+  .snapshot-tag,
+  .text-button,
+  .kpi-heading,
+  .kpi-number > span,
+  .kpi p,
+  .kpi-foot,
+  .section-eyebrow,
+  .panel-heading p,
+  .range-buttons button,
+  .chart-unit,
+  .chart-caption,
+  .decision-brief > .section-eyebrow,
+  .brief-index,
+  .brief-item p,
+  .vintage-box dt,
+  .vintage-box dd,
+  .vintage-box small,
+  .formula-label,
+  .error-legend,
+  th,
+  .date-cell > span,
+  .muted,
+  .alignment-tag,
+  .table-footer,
+  .footer,
+  .table-footer .muted
+) {
+  color: #607052 !important;
+}
+.decision-banner p,
+.banner-badge {
+  color: #52673e;
+}
+.vintage-box > div {
+  color: #5d7148;
+}
+.text-amber {
+  color: #925d28 !important;
+}
+.text-green {
+  color: #3f7757 !important;
+}
+.error-chip {
+  color: #875c22;
+}
+.kpi.amber .kpi-foot {
+  color: #8b6129 !important;
+}
+:is(
+  .accuracy-intro p,
+  .metric-detail h2,
+  .metric-detail p,
+  .analysis-note strong,
+  .analysis-note p,
+  .method-hero p,
+  .method-panel > p,
+  .method-facts dt,
+  .method-steps span,
+  .formula-grid span,
+  .quality-stat-grid > div,
+  .method-callout,
+  .soft-badge,
+  .state-panel p,
+  .refresh-modal p,
+  .refresh-modal label,
+  .advanced-filters label,
+  .advanced-filters p,
+  .notice
+) {
+  color: #5d704e;
+}
+.notice.warning {
+  color: #805e26;
+}
+.notice.success {
+  color: #476e35;
+}
+.quality-stat-grid span {
+  color: #607052;
+}
+.refresh-modal {
+  border: 1px solid #dce5d4;
+}
+.refresh-modal::backdrop {
+  background: #173b2d66;
+  backdrop-filter: blur(3px);
+}
+.nav-item {
+  transition: none;
+}
+.nav-item.active:hover {
+  background: #d4e5a2;
+  color: #173e31;
+}
+.section-eyebrow {
+  font-size: 9px;
+}
+.page-heading p {
+  font-size: 12px;
+}
+.data-strip {
+  font-size: 11px;
+}
+.snapshot-tag {
+  font-size: 8px;
+}
+.kpi-heading {
+  font-size: 11px;
+}
+.kpi p {
+  font-size: 10px;
+}
+.kpi-foot {
+  font-size: 10px;
+}
+.panel-heading p {
+  font-size: 11px;
+}
+.chart-caption {
+  font-size: 10px;
+}
+.chart-legend {
+  font-size: 10px;
+}
+.chart-unit {
+  font-size: 10px;
+}
+.error-legend {
+  font-size: 10px;
+}
+.brief-item h3 {
+  font-size: 11px;
+}
+.brief-item p {
+  font-size: 11px;
+}
+.brief-index {
+  font-size: 10px;
+}
+.vintage-box dl {
+  font-size: 10px;
+}
+.vintage-box > div {
+  font-size: 10px;
+}
+.vintage-box small {
+  font-size: 9px;
+}
+.decision-brief > .text-button {
+  font-size: 10px;
+}
+.table-footer,
+.table-footer .muted {
+  font-size: 10px;
+}
+table {
+  font-size: 11px;
+}
+th,
+th button {
+  font-size: 10px;
+}
+.alignment-tag {
+  font-size: 9px;
+}
+.footer {
+  font-size: 9px;
+}
+.decision-banner p {
+  font-size: 11px;
+}
+.banner-badge {
+  font-size: 10px;
+}
+.generation-chart {
+  height: 310px;
+}
+.decision-brief > h2 {
+  font-size: 21px;
+}
+.sidebar-bottom {
+  padding-top: 32px;
+  padding-bottom: 5px;
+}
+@media (max-width: 700px) {
+  .kpi-heading {
+    font-size: 10px;
+  }
+  .kpi-foot {
+    font-size: 9px;
+  }
+  .chart-caption {
+    font-size: 9px;
+  }
+  .chart-legend,
+  .chart-unit,
+  .error-legend {
+    font-size: 9px;
+  }
+  .brief-item p {
+    font-size: 11px;
+  }
+  .generation-chart {
+    height: 270px;
+  }
+  .section-eyebrow {
+    font-size: 8px;
+  }
+  .data-strip {
+    font-size: 10px;
+  }
+  .decision-banner p {
+    font-size: 10px;
+  }
+  .banner-badge {
+    font-size: 9px;
+  }
+  .panel-heading p {
+    font-size: 11px;
+  }
+  .table-footer,
+  .table-footer .muted {
+    font-size: 9px;
+  }
+}
