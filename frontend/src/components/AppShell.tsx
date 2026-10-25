@@ -11,10 +11,12 @@ import {
   Wind,
   X,
   Activity,
+  Lightbulb,
+  CircleCheck,
 } from "lucide-react";
 import { useState } from "react";
 import type { Analysis, Page } from "../types";
-import { datetime } from "../utils/format";
+import { datetime, number } from "../utils/format";
 const navigation: { id: Page; label: string; icon: typeof Wind }[] = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
   { id: "forecast", label: "Forecast analysis", icon: Activity },
@@ -38,7 +40,7 @@ export function AppShell({
 }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="app-shell">
+    <div className={`app-shell workspace-${page}`}>
       <a className="skip-link" href="#main-content">
         Skip to main content
       </a>
@@ -56,6 +58,7 @@ export function AppShell({
             windward<span className="brand-dot">.</span>
           </span>
         </a>
+        <div className="brand-descriptor">Wind Generation Intelligence</div>
         <button
           className="mobile-close icon-button"
           onClick={() => setOpen(false)}
@@ -133,36 +136,6 @@ export function AppShell({
               <Radio size={12} /> Historical analysis
             </span>
             <span className="topbar-period">January 2026</span>
-            <span className="avatar" aria-label="Great Britain workspace">
-              GB
-            </span>
-          </div>
-        </header>
-        <main id="main-content" tabIndex={-1}>
-          <div className="page-heading">
-            <div>
-              <div className="eyebrow">
-                <Wind size={14} /> WIND GENERATION INTELLIGENCE
-              </div>
-              <h1>
-                {page === "overview"
-                  ? "A clearer view of the day ahead."
-                  : page === "forecast"
-                    ? "From forecast to delivery."
-                    : page === "accuracy"
-                      ? "Understand the uncertainty."
-                      : "Confidence starts with the data."}
-              </h1>
-              <p>
-                {page === "overview"
-                  ? "Wind forecasts, measured against reality. Make every procurement decision better informed."
-                  : page === "forecast"
-                    ? "Inspect the forecast available at decision time, and trace every delivery interval."
-                    : page === "accuracy"
-                      ? "Quantify forecast reliability and identify where procurement exposure is greatest."
-                      : "Transparent sources, explicit assumptions, and a reproducible analytical process."}
-              </p>
-            </div>
             <button
               className="button button-white refresh-button"
               onClick={onRefresh}
@@ -171,21 +144,103 @@ export function AppShell({
               <RefreshCw size={15} className={refreshing ? "spin" : ""} />
               {refreshing ? "Refreshing…" : "Refresh data"}
             </button>
-          </div>
-          <div className="data-strip">
-            <span>
-              <span className="status-dot" /> Elexon national WIND{" "}
-              <span className="strip-separator">/</span> 30-minute comparison
+            <span className="avatar" aria-label="Great Britain workspace">
+              GB
             </span>
-            <span>
-              Retrieved {data ? `${datetime(data.meta.fetched_at)} GMT` : "—"}{" "}
-              <span className="snapshot-tag">
-                {data?.meta.cache_source === "elexon_live_refresh"
-                  ? "REFRESHED"
-                  : "SNAPSHOT"}
+          </div>
+        </header>
+        <main id="main-content" tabIndex={-1}>
+          <div className="workspace-heading">
+            <div className="page-heading">
+              <div className="heading-copy">
+                <div className="eyebrow">
+                  <Wind size={14} /> WIND GENERATION INTELLIGENCE
+                </div>
+                <h1>
+                  {page === "overview"
+                    ? "Day-ahead wind position"
+                    : page === "forecast"
+                      ? "From forecast to delivery."
+                      : page === "accuracy"
+                        ? "Understand the uncertainty."
+                        : "Confidence starts with the data."}
+                </h1>
+                <p>
+                  {page === "overview"
+                    ? "Understand wind generation forecasts, historical accuracy, and procurement uncertainty."
+                    : page === "forecast"
+                      ? "Inspect the forecast available at decision time, and trace every delivery interval."
+                      : page === "accuracy"
+                        ? "Quantify forecast reliability and identify where procurement exposure is greatest."
+                        : "Transparent sources, explicit assumptions, and a reproducible analytical process."}
+                </p>
+              </div>
+            </div>
+            {page === "overview" && data && (
+              <div className="hero-position">
+                <span className="hero-position-label">
+                  <Wind size={16} /> LATEST SELECTED DAY-AHEAD FORECAST
+                </span>
+                <div className="hero-position-value">
+                  {number(data.meta.latest?.forecast_mw)}
+                  <span>MW</span>
+                </div>
+                <div className="hero-position-meta">
+                  <div>
+                    <span>Delivery · GMT</span>
+                    <strong>{datetime(data.meta.latest?.delivery_time)}</strong>
+                  </div>
+                  <div>
+                    <span>Published · GMT</span>
+                    <strong>{datetime(data.meta.latest?.publish_time)}</strong>
+                  </div>
+                </div>
+              </div>
+            )}
+            <div className="data-strip">
+              <span>
+                <span className="status-dot" /> Elexon national WIND{" "}
+                <span className="strip-separator">/</span> 30-minute comparison
               </span>
-            </span>
+              <span>
+                Retrieved {data ? `${datetime(data.meta.fetched_at)} GMT` : "—"}{" "}
+                <span className="snapshot-tag">
+                  {data?.meta.cache_source === "elexon_live_refresh"
+                    ? "REFRESHED"
+                    : "SNAPSHOT"}
+                </span>
+              </span>
+            </div>
           </div>
+          {page === "overview" && data && (
+            <div className="procurement-summary">
+              <div
+                className={`procurement-signal ${data.insights[0]?.tone ?? "neutral"}`}
+              >
+                <Lightbulb size={22} />
+                <div>
+                  <span className="section-eyebrow">PROCUREMENT SIGNAL</span>
+                  <h2>
+                    {data.insights[0]?.title ?? "Historical decision context"}
+                  </h2>
+                  <p>
+                    {data.insights[0]?.text ??
+                      "Compare the forecast available at the cutoff with delivered wind generation."}
+                  </p>
+                </div>
+              </div>
+              <div className="coverage-summary">
+                <CircleCheck size={22} />
+                <div>
+                  <span className="section-eyebrow">DATA COVERAGE</span>
+                  <strong>
+                    {number(data.metrics.coverage_pct, 1)}% paired intervals
+                  </strong>
+                  <p>{number(data.metrics.count)} matched half-hours</p>
+                </div>
+              </div>
+            </div>
+          )}
           {children}
           <footer className="footer">
             <span>

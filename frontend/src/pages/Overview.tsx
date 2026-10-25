@@ -20,12 +20,14 @@ export function Overview({
       <KPIGrid data={data} />
       <div className="overview-chart-grid">
         <ForecastChart data={data} filters={filters} onFilters={onFilters} />
+      </div>
+      <div className="supporting-workspace">
+        <ErrorChart data={data} />
         <DecisionBrief
           data={data}
           onMethodology={() => onPage("methodology")}
         />
       </div>
-      <ErrorChart data={data} />
       <ForecastTable
         key={JSON.stringify(filters)}
         rows={data.rows}

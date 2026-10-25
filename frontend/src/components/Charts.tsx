@@ -16,14 +16,14 @@ import {
 import { ArrowUpRight, ChartNoAxesCombined } from "lucide-react";
 import type { Analysis, Filters, Row } from "../types";
 import { date, datetime, number, signed } from "../utils/format";
-const GREEN = "#247c68",
-  FORECAST = "#8b9e43",
-  AMBER = "#bc783d",
-  GRID = "#edf0ed";
+const GREEN = "#2D6659",
+  FORECAST = "#829A28",
+  AMBER = "#D99A2B",
+  GRID = "#E9EEEA";
 const axis = {
   axisLine: false,
   tickLine: false,
-  tick: { fill: "#7a8580", fontSize: 11 },
+  tick: { fill: "#6B7771", fontSize: 12, fontFamily: "DM Sans, sans-serif" },
 };
 type Payload = {
   dataKey?: string | number;
@@ -160,12 +160,12 @@ export function ForecastChart({
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart
             data={chartData}
-            margin={{ top: 12, right: 8, bottom: 4, left: 0 }}
+            margin={{ top: 16, right: 16, bottom: 8, left: 4 }}
             accessibilityLayer
           >
             <defs>
               <linearGradient id="actual-fill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor={GREEN} stopOpacity={0.13} />
+                <stop offset="0%" stopColor={GREEN} stopOpacity={0.1} />
                 <stop offset="100%" stopColor={GREEN} stopOpacity={0.01} />
               </linearGradient>
             </defs>
@@ -202,7 +202,7 @@ export function ForecastChart({
               name="Actual wind"
               type="linear"
               stroke={GREEN}
-              strokeWidth={1.7}
+              strokeWidth={2.2}
               fill="url(#actual-fill)"
               dot={false}
               connectNulls={false}
@@ -213,8 +213,8 @@ export function ForecastChart({
               name="Day-ahead forecast"
               type="stepAfter"
               stroke={FORECAST}
-              strokeWidth={1.6}
-              strokeDasharray="5 3"
+              strokeWidth={1.9}
+              strokeDasharray="6 4"
               dot={false}
               connectNulls={false}
               isAnimationActive={false}
@@ -301,7 +301,7 @@ export function ErrorChart({ data }: { data: Analysis }) {
               ticks={[-limit, -limit / 2, 0, limit / 2, limit]}
               tickFormatter={(v) => `${number(v / 1000, 1)}k`}
             />
-            <ReferenceLine y={0} stroke="#82928a" strokeDasharray="3 3" />
+            <ReferenceLine y={0} stroke="#62776D" strokeDasharray="4 4" />
             <Tooltip content={<GenerationTooltip />} />
             <Area
               dataKey="error_mw"
@@ -309,8 +309,8 @@ export function ErrorChart({ data }: { data: Analysis }) {
               name="Forecast error"
               stroke="url(#error-stroke)"
               fill="url(#error-stroke)"
-              fillOpacity={0.12}
-              strokeWidth={1.2}
+              fillOpacity={0.14}
+              strokeWidth={1.6}
               isAnimationActive={false}
             />
           </AreaChart>
@@ -329,13 +329,19 @@ export function ErrorChart({ data }: { data: Analysis }) {
     </section>
   );
 }
-export function DailyChart({ data }: { data: Analysis }) {
+export function DailyChart({
+  data,
+  title = "When was uncertainty highest?",
+}: {
+  data: Analysis;
+  title?: string;
+}) {
   return (
     <section className="panel">
       <div className="panel-heading">
         <div>
           <div className="section-eyebrow">DAILY PERFORMANCE</div>
-          <h2>When was uncertainty highest?</h2>
+          <h2>{title}</h2>
           <p>Mean absolute error by delivery day · MW</p>
         </div>
         <ArrowUpRight size={18} />
@@ -376,13 +382,19 @@ export function DailyChart({ data }: { data: Analysis }) {
     </section>
   );
 }
-export function IntradayChart({ data }: { data: Analysis }) {
+export function IntradayChart({
+  data,
+  title = "How does error change through the day?",
+}: {
+  data: Analysis;
+  title?: string;
+}) {
   return (
     <section className="panel">
       <div className="panel-heading">
         <div>
           <div className="section-eyebrow">TIME-OF-DAY PATTERN</div>
-          <h2>How does error change through the day?</h2>
+          <h2>{title}</h2>
           <p>MAE by delivery half-hour · London time · MW</p>
         </div>
       </div>
@@ -416,13 +428,19 @@ export function IntradayChart({ data }: { data: Analysis }) {
     </section>
   );
 }
-export function DistributionChart({ data }: { data: Analysis }) {
+export function DistributionChart({
+  data,
+  title = "How often were forecasts far off?",
+}: {
+  data: Analysis;
+  title?: string;
+}) {
   return (
     <section className="panel">
       <div className="panel-heading">
         <div>
           <div className="section-eyebrow">ERROR DISTRIBUTION</div>
-          <h2>How often were forecasts far off?</h2>
+          <h2>{title}</h2>
           <p>Matched intervals grouped by signed error · MW</p>
         </div>
       </div>

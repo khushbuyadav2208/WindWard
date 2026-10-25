@@ -2,30 +2,16 @@ import {
   ArrowDownRight,
   ArrowUpRight,
   Info,
-  Wind,
+  Percent,
   Target,
   Activity,
   Scale,
 } from "lucide-react";
 import type { Analysis } from "../types";
-import { datetime, number, signed } from "../utils/format";
+import { number, signed } from "../utils/format";
 export function KPIGrid({ data }: { data: Analysis }) {
-  const { metrics: m, meta } = data;
+  const { metrics: m } = data;
   const kpis = [
-    {
-      title: "Latest selected forecast",
-      value: number(meta.latest?.forecast_mw),
-      unit: "MW",
-      icon: Wind,
-      definition:
-        "Forecast for the last delivery interval in your selection, using only publications available by its D-1 cutoff.",
-      detail: `${datetime(meta.latest?.delivery_time)} GMT delivery`,
-      extra:
-        meta.latest?.lead_hours != null
-          ? `${number(meta.latest.lead_hours, 1)}h lead time`
-          : "No forecast available",
-      tone: "green",
-    },
     {
       title: "Mean absolute error",
       value: number(m.mae_mw),
@@ -70,6 +56,17 @@ export function KPIGrid({ data }: { data: Analysis }) {
             ? "Potential wind shortfall"
             : "Potential additional wind",
       tone: "amber",
+    },
+    {
+      title: "MAPE",
+      value: number(m.mape_pct, 1),
+      unit: "%",
+      icon: Percent,
+      definition:
+        "Mean absolute percentage error. Zero actuals are excluded; this measure is sensitive when actual generation is very low.",
+      detail: "Mean absolute percentage error",
+      extra: "Zero actual values excluded",
+      tone: "",
     },
   ];
   return (

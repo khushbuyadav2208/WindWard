@@ -40,17 +40,15 @@ export function DecisionBrief({
   const latest = data.meta.latest;
   return (
     <aside className="decision-brief">
-      <div className="section-eyebrow">
-        <Lightbulb size={13} /> PROCUREMENT LENS
+      <div className="brief-heading">
+        <div className="section-eyebrow">
+          <Lightbulb size={14} /> PROCUREMENT LENS
+        </div>
+        <h2>What the data tells you.</h2>
       </div>
-      <h2>
-        What this means
-        <br />
-        for your next decision.
-      </h2>
       <div className="brief-insights">
         {data.insights.slice(0, 2).map((insight, i) => (
-          <div className="brief-item" key={insight.title}>
+          <div className={`brief-item ${insight.tone}`} key={insight.title}>
             <span className="brief-index">0{i + 1}</span>
             <div>
               <h3>{insight.title}</h3>

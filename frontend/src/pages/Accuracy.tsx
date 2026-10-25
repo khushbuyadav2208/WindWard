@@ -4,6 +4,7 @@ import {
   DailyChart,
   DistributionChart,
   IntradayChart,
+  ErrorChart,
 } from "../components/Charts";
 export function Accuracy({ data }: { data: Analysis }) {
   const m = data.metrics;
@@ -41,6 +42,23 @@ export function Accuracy({ data }: { data: Analysis }) {
   ];
   return (
     <>
+      <div className="accuracy-workspace">
+        <div className="accuracy-grid">
+          {values.map(([label, value, description]) => (
+            <article className="metric-detail" key={label}>
+              <h2>{label}</h2>
+              <strong>{value}</strong>
+              <p>{description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+      <div className="accuracy-charts">
+        <DailyChart data={data} title="Daily forecast performance" />
+        <IntradayChart data={data} title="Forecast error by time of day" />
+        <ErrorChart data={data} />
+        <DistributionChart data={data} title="Forecast error distribution" />
+      </div>
       <div className="accuracy-intro">
         <span className="section-eyebrow">MEASURE WHAT MATTERS</span>
         <p>
@@ -48,20 +66,6 @@ export function Accuracy({ data }: { data: Analysis }) {
           {number(m.expected_count)} expected. Missing pairs are excluded, never
           replaced with zero. All metrics describe historical performance.
         </p>
-      </div>
-      <div className="accuracy-grid">
-        {values.map(([label, value, description]) => (
-          <article className="metric-detail" key={label}>
-            <h2>{label}</h2>
-            <strong>{value}</strong>
-            <p>{description}</p>
-          </article>
-        ))}
-      </div>
-      <DailyChart data={data} />
-      <div className="two-column">
-        <IntradayChart data={data} />
-        <DistributionChart data={data} />
       </div>
       <div className="analysis-note">
         <strong>A procurement signal, with context.</strong>
