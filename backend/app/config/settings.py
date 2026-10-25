@@ -7,7 +7,11 @@ import re
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file='.env', extra='ignore')
     decision_cutoff: str = '10:00'
-    cors_origins: list[str] = ['http://localhost:5173', 'http://127.0.0.1:5173']
+    cors_origins: list[str] = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+    'https://windward-khushbu.onrender.com'
+]
     cache_path: Path = Path('backend/data/cache.json')
     cache_ttl_seconds: int = Field(default=86400, ge=60)
     elexon_timeout_seconds: float = Field(default=40, ge=1, le=120)
